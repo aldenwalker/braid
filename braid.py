@@ -108,11 +108,13 @@ def drawn_path(pts, start_up):
     elif p1R or p2R:
       if p1R:
         C = circle_between_points((p1,0), p2)
+        if C == None:
+          ans.append( ('line', p1, 0, p2[0], p2[1]) )
       else:
         C = circle_between_points((p2,0), p1)
-      if C == None:
-        ans.append( ('line', p1, 0, p2[0], p2[1]) )
-      else:
+        if C == None:
+          ans.append( ('line', p1[0], p1[1], p2, 0) )
+      if C != None:
         #we don't need to negate because the points must already have taken this into account
         c,r,a1,a2 = C
         ans.append( ('circ', (c,0),r,a1,a2) )
